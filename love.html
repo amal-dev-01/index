@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Will You Marry Me? 💕</title>
+
+<style>
+/* ===== RESET ===== */
+body {
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #ff6b95, #ffa8c5);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Georgia', serif;
+    overflow: hidden;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+/* ===== FLOATING HEARTS ===== */
+.floating-heart {
+    position: fixed;
+    font-size: 20px;
+    opacity: 0.4;
+    animation: float linear infinite;
+    pointer-events: none;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.6;
+    }
+    100% {
+        transform: translateY(-120vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+/* ===== CARD ===== */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 50px 45px;
+    border-radius: 35px;
+    text-align: center;
+    width: 420px;
+    box-shadow: 0 25px 60px rgba(255, 75, 110, 0.3),
+                0 0 100px rgba(255, 182, 193, 0.2);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+/* ===== TEDDY ===== */
+.teddy {
+    font-size: 100px;
+    animation: bounce 1.5s infinite;
+    filter: drop-shadow(0 5px 15px rgba(255, 75, 110, 0.3));
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-15px) scale(1.05); }
+}
+
+/* ===== TEXT ===== */
+h1 { 
+    color: #ff4b6e;
+    font-size: 32px;
+    margin: 20px 0;
+    text-shadow: 2px 2px 4px rgba(255, 75, 110, 0.2);
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+.message {
+    color: #666;
+    font-size: 17px;
+    line-height: 1.8;
+    margin: 25px 0;
+    font-style: italic;
+    font-family: 'Georgia', serif;
+}
+
+.question {
+    color: #ff4b6e;
+    margin-top: 25px;
+    font-size: 26px;
+    font-weight: 600;
+    text-shadow: 1px 1px 3px rgba(255, 75, 110, 0.2);
+}
+
+/* ===== BUTTON AREA ===== */
+.buttons {
+    margin-top: 35px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+    position: relative;
+}
+
+/* ===== BUTTONS ===== */
+button {
+    padding: 14px 40px;
+    border-radius: 30px;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: transform 0.2s ease;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+/* YES - Continuous pulse */
+.yes {
+    background: linear-gradient(135deg, #ff4b6e, #ff758c);
+    color: white;
+    z-index: 2;
+    box-shadow: 0 8px 25px rgba(255, 75, 110, 0.4);
+    animation: continuousPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes continuousPulse {
+    0%, 100% { 
+        transform: scale(1);
+        box-shadow: 0 8px 25px rgba(255, 75, 110, 0.4);
+    }
+    50% { 
+        transform: scale(1.12);
+        box-shadow: 0 12px 35px rgba(255, 75, 110, 0.6);
+    }
+}
+
+/* Extra pulse on interaction */
+.yes.extra-pulse {
+    animation: extraPulse 0.4s ease-in-out, continuousPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes extraPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.25); }
+    100% { transform: scale(1); }
+}
+
+/* NO */
+.no {
+    background: #f5f5f5;
+    color: #666;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== SURPRISE ===== */
+.surprise {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, #ff4b6e, #ff758c, #ffa8c5);
+    background-size: 400% 400%;
+    animation: gradientShift 6s ease infinite;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.surprise h1 {
+    font-size: 48px;
+    color: white;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+    margin-bottom: 20px;
+}
+
+@keyframes celebrationBounce {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+/* ===== ENHANCED HEART ===== */
+.heart-container {
+    position: relative;
+    margin-top: 30px;
+    width: 200px;
+    height: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.heart {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+/* Big romantic heart */
+.big-heart {
+    font-size: 140px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 30px rgba(255, 75, 110, 0.8));
+}
+
+@keyframes heartBeat {
+    0%, 100% { 
+        transform: scale(1);
+    }
+    14% { 
+        transform: scale(1.15);
+    }
+    28% { 
+        transform: scale(1);
+    }
+    42% { 
+        transform: scale(1.15);
+    }
+    56% { 
+        transform: scale(1);
+    }
+}
+
+@keyframes heartPulse {
+    0%, 100% { 
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% { 
+        opacity: 0.9;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+.ring-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
+    border-radius: 50%;
+    animation: glowPulse 2s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+    0%, 100% { 
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.5;
+    }
+    50% { 
+        transform: translate(-50%, -50%) scale(1.3);
+        opacity: 0.8;
+    }
+}
+
+.sparkle {
+    position: absolute;
+    color: white;
+    font-size: 24px;
+    animation: sparkle 1.5s ease-in-out infinite;
+}
+
+@keyframes sparkle {
+    0%, 100% { 
+        opacity: 0;
+        transform: scale(0);
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.sparkle:nth-child(1) { top: 20px; left: 50%; animation-delay: 0s; }
+.sparkle:nth-child(2) { top: 50%; right: 20px; animation-delay: 0.3s; }
+.sparkle:nth-child(3) { bottom: 20px; left: 50%; animation-delay: 0.6s; }
+.sparkle:nth-child(4) { top: 50%; left: 20px; animation-delay: 0.9s; }
+
+/* ===== CONFETTI ===== */
+.confetti {
+    position: absolute;
+    top: -10px;
+    font-size: 14px;
+    animation: fall linear forwards;
+}
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* ===== ROMANTIC MESSAGE ===== */
+.romantic-message {
+    margin-top: 40px;
+    font-size: 20px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.95);
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    line-height: 1.6;
+}
+</style>
+</head>
+
+<body>
+
+<!-- Floating hearts background -->
+<div class="floating-heart" style="left: 10%; animation-duration: 12s; bottom: 0;">💕</div>
+<div class="floating-heart" style="left: 25%; animation-duration: 15s; animation-delay: 2s; bottom: -20vh;">❤️</div>
+<div class="floating-heart" style="left: 40%; animation-duration: 13s; animation-delay: 4s; bottom: -40vh;">💖</div>
+<div class="floating-heart" style="left: 60%; animation-duration: 14s; animation-delay: 1s; bottom: -10vh;">💗</div>
+<div class="floating-heart" style="left: 75%; animation-duration: 16s; animation-delay: 3s; bottom: -30vh;">💝</div>
+<div class="floating-heart" style="left: 90%; animation-duration: 13s; animation-delay: 5s; bottom: -50vh;">💘</div>
+<div class="floating-heart" style="left: 15%; animation-duration: 14s; animation-delay: 6s; bottom: -60vh;">💓</div>
+<div class="floating-heart" style="left: 50%; animation-duration: 17s; animation-delay: 7s; bottom: -70vh;">💞</div>
+<div class="floating-heart" style="left: 80%; animation-duration: 15s; animation-delay: 8s; bottom: -80vh;">💕</div>
+<div class="floating-heart" style="left: 35%; animation-duration: 13s; animation-delay: 9s; bottom: -90vh;">❤️</div>
+
+<div class="card" id="card">
+    <div class="teddy">🧸</div>
+    <h1>Happy Valentine's Day 💖</h1>
+
+    <p class="message">
+        From the moment you entered my life,<br>
+        every day has been a beautiful dream.<br>
+        You are my sunshine, my moonlight, my stars above 💕<br>
+        I want to wake up next to you every morning,<br>
+        hold your hand through every season,<br>
+        and grow old with you, creating memories<br>
+        that will last a lifetime and beyond 💖
+    </p>
+
+    <h2 class="question">Will you marry me? 💍</h2>
+
+    <div class="buttons" id="buttonArea">
+        <button class="yes" id="yesBtn">Yes! 💕</button>
+        <button class="no" id="noBtn">No</button>
+    </div>
+</div>
+
+<div class="surprise" id="surprise">
+    <div class="floating-heart" style="left: 25%; animation-duration: 15s; animation-delay: 2s; bottom: -20vh;">❤️</div>
+        <div class="floating-heart" style="left: 40%; animation-duration: 13s; animation-delay: 4s; bottom: -40vh;">💖</div>
+        <div class="floating-heart" style="left: 90%; animation-duration: 13s; animation-delay: 5s; bottom: -50vh;">💘</div>
+        <div class="floating-heart" style="left: 15%; animation-duration: 14s; animation-delay: 6s; bottom: -60vh;">💓</div>
+        <div class="floating-heart" style="left: 50%; animation-duration: 17s; animation-delay: 7s; bottom: -70vh;">💞</div>
+        <div class="floating-heart" style="left: 80%; animation-duration: 15s; animation-delay: 8s; bottom: -80vh;">💕</div>
+    <div class="floating-heart" style="left: 35%; animation-duration: 13s; animation-delay: 9s; bottom: -90vh;">❤️</div>
+
+    <h1>💍 SHE SAID YES!!! 💍</h1>
+    
+    <div class="heart-container">
+        <div class="sparkle">✨</div>
+        <div class="sparkle">✨</div>
+        <div class="sparkle">✨</div>
+        <div class="sparkle">✨</div>
+        <div class="heart">
+            <div class="big-heart">💖</div>
+        </div>
+    </div>
+    
+    <p class="romantic-message">
+        You are my dream come true, my soulmate, my everything!<br>
+        Together, we'll write the most beautiful love story ever told.<br>
+        I promise to love you more with each passing day,<br>
+        to cherish every moment, to be your forever and always 💕
+    </p>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const area = document.getElementById("buttonArea");
+
+let initialized = false;
+
+/* Extra pulse on interaction */
+function addExtraPulse() {
+    yesBtn.classList.remove("extra-pulse");
+    void yesBtn.offsetWidth; // force reflow
+    yesBtn.classList.add("extra-pulse");
+    
+    // Remove class after animation completes
+    setTimeout(() => {
+        yesBtn.classList.remove("extra-pulse");
+    }, 400);
+}
+
+/* Move NO */
+function moveNoButton() {
+    addExtraPulse();
+
+    if (!initialized) {
+        noBtn.style.position = "absolute";
+        noBtn.style.left = noBtn.offsetLeft + "px";
+        noBtn.style.top = noBtn.offsetTop + "px";
+        initialized = true;
+    }
+
+    const areaRect = area.getBoundingClientRect();
+    const noRect = noBtn.getBoundingClientRect();
+
+    let x;
+    do {
+        x = Math.random() * (areaRect.width - noRect.width);
+    } while (
+        x + noRect.width > yesBtn.offsetLeft - 20 &&
+        x < yesBtn.offsetLeft + yesBtn.offsetWidth + 20
+    );
+
+    noBtn.style.left = x + "px";
+    noBtn.style.top = Math.random() * 50 + "px";
+}
+
+/* NO escape */
+noBtn.addEventListener("mousemove", moveNoButton);
+noBtn.addEventListener("mousedown", moveNoButton);
+noBtn.addEventListener("click", e => {
+    e.preventDefault();
+    moveNoButton();
+});
+
+/* YES interaction feedback */
+yesBtn.addEventListener("mousedown", addExtraPulse);
+yesBtn.addEventListener("mouseenter", addExtraPulse);
+
+/* YES click */
+yesBtn.addEventListener("click", () => {
+    document.getElementById("card").style.display = "none";
+    document.getElementById("surprise").style.display = "flex";
+    createConfetti();
+});
+
+/* Hearts confetti only - more hearts, slower speed */
+function createConfetti() {
+    const icons = ["❤️","💖","💕"];
+    
+    // Lots of hearts falling slowly
+    for (let i = 0; i < 150; i++) {
+        const c = document.createElement("div");
+        c.className = "confetti";
+        c.innerHTML = icons[Math.floor(Math.random()*icons.length)];
+        c.style.left = Math.random()*100 + "vw";
+        c.style.fontSize = 16 + Math.random()*16 + "px";
+        c.style.animationDuration = 5 + Math.random()*3 + "s";
+        c.style.animationDelay = Math.random()*1 + "s";
+        document.body.appendChild(c);
+        setTimeout(() => c.remove(), 8000);
+    }
+}
+</script>
+
+</body>
+</html>
