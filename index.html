@@ -14,7 +14,7 @@
 body {
     margin: 0;
     min-height: 100vh;
-    background: linear-gradient(135deg, #ff6b95, #ffa8c5);
+    /* background: linear-gradient(135deg, #ff6b95, #ffa8c5); */
     background-size: 400% 400%;
     animation: gradientShift 8s ease infinite;
     display: flex;
@@ -179,7 +179,7 @@ button:active {
     display: none;
     position: fixed;
     inset: 0;
-    background: linear-gradient(135deg, #ff4b6e, #ff758c, #ffa8c5);
+    /* background: linear-gradient(135deg, #ff4b6e, #ff758c, #ffa8c5); */
     background-size: 400% 400%;
     animation: gradientShift 6s ease infinite;
     color: white;
@@ -190,42 +190,94 @@ button:active {
     overflow-y: auto;
 }
 
-.surprise h1 {
-    font-size: clamp(28px, 8vw, 48px);
-    color: white;
-    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
-}
-
-@keyframes celebrationBounce {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.08); }
-}
-
-/* ===== ENHANCED HEART ===== */
-.heart-container {
+/* ===== CIRCULAR IMAGE FRAME ===== */
+.image-frame {
+    width: clamp(200px, 50vw, 300px);
+    height: clamp(200px, 50vw, 300px);
+    border-radius: 50%;
+    border: 8px solid white;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.6),
+                0 0 80px rgba(255, 255, 255, 0.4),
+                inset 0 0 20px rgba(255, 255, 255, 0.3);
+    overflow: hidden;
     position: relative;
-    margin-top: clamp(20px, 5vw, 30px);
-    width: clamp(150px, 40vw, 200px);
-    height: clamp(150px, 40vw, 200px);
-    margin-left: auto;
-    margin-right: auto;
+    /* animation: frameGlow 2s ease-in-out infinite; */
+    margin-bottom: 40px;
 }
 
-.heart {
-    position: relative;
+@keyframes frameGlow {
+    0%, 100% {
+        box-shadow: 0 0 40px rgba(255, 255, 255, 0.6),
+                    0 0 80px rgba(255, 255, 255, 0.4),
+                    inset 0 0 20px rgba(255, 255, 255, 0.3);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 60px rgba(255, 255, 255, 0.8),
+                    0 0 100px rgba(255, 255, 255, 0.6),
+                    inset 0 0 30px rgba(255, 255, 255, 0.5);
+        transform: scale(1.05);
+    }
+}
+
+.image-frame img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
-/* Big romantic heart */
-.big-heart {
-    font-size: clamp(100px, 25vw, 140px);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    filter: drop-shadow(0 0 30px rgba(255, 75, 110, 0.8));
+/* Placeholder styling if no image is set */
+.image-frame .placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.2);
+    font-size: clamp(40px, 12vw, 80px);
+}
+
+/* ===== NAMES WITH HEART ===== */
+.names-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(20px, 5vw, 40px);
+    flex-wrap: wrap;
+}
+.name {
+    font-size: clamp(36px, 10vw, 72px);
+    font-weight: 600;
+
+    color: #b84a6a; /* soft rose, not dark */
+    background: rgba(255, 255, 255, 0.65);
+
+    padding: 10px 24px;
+    border-radius: 14px;
+
+    text-shadow:
+        0 6px 20px rgba(255, 105, 135, 0.35);
+
+    font-family: 'Italiana', serif;
+    font-style: italic;
+}
+
+
+.heart-divider {
+    font-size: clamp(40px, 12vw, 80px);
+    /* animation: heartBeat 1.5s ease-in-out infinite; */
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+}
+
+@keyframes nameGlow {
+    0%, 100% {
+        text-shadow: 4px 4px 15px rgba(0, 0, 0, 0.4);
+    }
+    50% {
+        text-shadow: 4px 4px 25px rgba(255, 255, 255, 0.6),
+                     0 0 30px rgba(255, 255, 255, 0.4);
+    }
 }
 
 @keyframes heartBeat {
@@ -233,75 +285,18 @@ button:active {
         transform: scale(1);
     }
     14% { 
-        transform: scale(1.15);
+        transform: scale(1.2);
     }
     28% { 
         transform: scale(1);
     }
     42% { 
-        transform: scale(1.15);
+        transform: scale(1.2);
     }
     56% { 
         transform: scale(1);
     }
 }
-
-@keyframes heartPulse {
-    0%, 100% { 
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(1);
-    }
-    50% { 
-        opacity: 0.9;
-        transform: translate(-50%, -50%) scale(1.1);
-    }
-}
-
-.ring-glow {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.4), transparent);
-    border-radius: 50%;
-    animation: glowPulse 2s ease-in-out infinite;
-}
-
-@keyframes glowPulse {
-    0%, 100% { 
-        transform: translate(-50%, -50%) scale(1);
-        opacity: 0.5;
-    }
-    50% { 
-        transform: translate(-50%, -50%) scale(1.3);
-        opacity: 0.8;
-    }
-}
-
-.sparkle {
-    position: absolute;
-    color: white;
-    font-size: clamp(18px, 4vw, 24px);
-    animation: sparkle 1.5s ease-in-out infinite;
-}
-
-@keyframes sparkle {
-    0%, 100% { 
-        opacity: 0;
-        transform: scale(0);
-    }
-    50% { 
-        opacity: 1;
-        transform: scale(1);
-    }
-}
-
-.sparkle:nth-child(1) { top: 10%; left: 50%; animation-delay: 0s; }
-.sparkle:nth-child(2) { top: 50%; right: 10%; animation-delay: 0.3s; }
-.sparkle:nth-child(3) { bottom: 10%; left: 50%; animation-delay: 0.6s; }
-.sparkle:nth-child(4) { top: 50%; left: 10%; animation-delay: 0.9s; }
 
 /* ===== CONFETTI ===== */
 .confetti {
@@ -318,18 +313,6 @@ button:active {
     }
 }
 
-/* ===== ROMANTIC MESSAGE ===== */
-.romantic-message {
-    margin-top: clamp(20px, 5vw, 40px);
-    font-size: clamp(16px, 4vw, 20px);
-    font-style: italic;
-    color: rgba(255, 255, 255, 0.95);
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-    max-width: 600px;
-    line-height: 1.6;
-    padding: 0 15px;
-}
-
 /* ===== MOBILE SPECIFIC ===== */
 @media (max-width: 480px) {
     body {
@@ -344,8 +327,8 @@ button:active {
         display: none;
     }
     
-    .romantic-message br {
-        display: none;
+    .image-frame {
+        margin-bottom: 30px;
     }
 }
 
@@ -378,6 +361,12 @@ button:active {
     .message {
         margin: 10px 0;
     }
+    
+    .image-frame {
+        width: 150px;
+        height: 150px;
+        margin-bottom: 20px;
+    }
 }
 
 /* ===== TOUCH DEVICES ===== */
@@ -409,17 +398,14 @@ button:active {
 
 <div class="card" id="card">
     <div class="teddy">🧸</div>
-    <h1>Happy Valentine's Day 💖</h1>
-
+    <h2 class="question">Will you be my Valentine? 💍</h2>
     <p class="message">
         From the moment you entered my life,<br>
         every day has been a beautiful dream.<br>
         You are my sunshine, my moonlight, my stars above 💕<br>
     </p>
-
-    <h2 class="question">Will you marry me? 💍</h2>
-
-    <div class="buttons" id="buttonArea">
+    
+   <div class="buttons" id="buttonArea">
         <button class="yes" id="yesBtn">Yes! 💕</button>
         <button class="no" id="noBtn">No</button>
     </div>
@@ -433,33 +419,47 @@ button:active {
     <div class="floating-heart" style="left: 50%; animation-duration: 17s; animation-delay: 7s; bottom: -70vh;">💞</div>
     <div class="floating-heart" style="left: 80%; animation-duration: 15s; animation-delay: 8s; bottom: -80vh;">💕</div>
     <div class="floating-heart" style="left: 35%; animation-duration: 13s; animation-delay: 9s; bottom: -90vh;">❤️</div>
+    <h1><span id="name1">Anu</span>, You Are My Valentine 🧸❤️</h1>
 
-    <h1>💍 SHE SAID YES!!!💍</h1>
-    
-    <div class="heart-container">
-        <div class="sparkle">✨</div>
-        <div class="sparkle">✨</div>
-        <div class="sparkle">✨</div>
-        <div class="sparkle">✨</div>
-        <div class="heart">
-            <div class="big-heart">💖</div>
-        </div>
+    <!-- Circular Image Frame -->
+    <div class="image-frame">
+        <!-- Replace the src with your image URL -->
+        <img src="images/couple.jpg" alt="Couple Photo" id="couplePhoto">
+        <!-- Placeholder if no image is set -->
+        <!-- <div class="placeholder">💑</div> -->
     </div>
     
-    <p class="romantic-message">
-        You are my dream come true, my soulmate, my everything!<br>
-        Together, we'll write the most beautiful love story ever told.<br>
-        I promise to love you more with each passing day,<br>
-        to cherish every moment, to be your forever and always 💕
-    </p>
+    <!-- Names with Heart -->
+    <div class="names-container">
+        <!-- <div class="name" id="name1">Anu</div> -->
+        <!-- <div class="heart-divider">❤️</div> -->
+        <!-- <div class="name" id="name2">Dev</div> -->
+    </div>
 </div>
 
 <script>
+// ===== GET NAMES FROM URL QUERY PARAMETERS =====
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+// Get names from URL or use defaults
+const name1 = getQueryParam('name1') || 'Anu';
+// const name2 = getQueryParam('name2') || 'Dev';
+
+// Update the names in the surprise section
+document.getElementById('name1').textContent = name1;
+// document.getElementById('name2').textContent = name2;
+
+// ===== BUTTON FUNCTIONALITY =====
 const noBtn = document.getElementById("noBtn");
 const yesBtn = document.getElementById("yesBtn");
 const area = document.getElementById("buttonArea");
 
 let initialized = false;
+let noBtnWidth = 0;
+let noBtnHeight = 0;
 
 /* Extra pulse on interaction */
 function addExtraPulse() {
@@ -473,48 +473,107 @@ function addExtraPulse() {
     }, 400);
 }
 
-/* Move NO */
-function moveNoButton() {
+/* Move NO button - Fixed for mobile and prevent overlap */
+function moveNoButton(e) {
+    // Prevent default on touch events
+    if (e && e.type && e.type.startsWith('touch')) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+    
     addExtraPulse();
 
     if (!initialized) {
+        // Get initial dimensions
+        const noBtnRect = noBtn.getBoundingClientRect();
+        const areaRect = area.getBoundingClientRect();
+        
+        noBtnWidth = noBtnRect.width;
+        noBtnHeight = noBtnRect.height;
+        
+        // Set absolute positioning
         noBtn.style.position = "absolute";
-        noBtn.style.left = noBtn.offsetLeft + "px";
-        noBtn.style.top = noBtn.offsetTop + "px";
+        noBtn.style.left = (noBtnRect.left - areaRect.left) + "px";
+        noBtn.style.top = (noBtnRect.top - areaRect.top) + "px";
+        
         initialized = true;
     }
 
+    // Get current dimensions
     const areaRect = area.getBoundingClientRect();
-    const noRect = noBtn.getBoundingClientRect();
-
-    let x;
+    const yesBtnRect = yesBtn.getBoundingClientRect();
+    
+    // Calculate Yes button position relative to area
+    const yesRelativeLeft = yesBtnRect.left - areaRect.left;
+    const yesRelativeTop = yesBtnRect.top - areaRect.top;
+    
+    // Define boundaries
+    const maxX = areaRect.width - noBtnWidth;
+    const maxY = 60; // Limit vertical movement
+    
+    let newX, newY;
+    let attempts = 0;
+    const maxAttempts = 50;
+    
+    // Find non-overlapping position
     do {
-        x = Math.random() * (areaRect.width - noRect.width);
-    } while (
-        x + noRect.width > yesBtn.offsetLeft - 20 &&
-        x < yesBtn.offsetLeft + yesBtn.offsetWidth + 20
-    );
-
-    noBtn.style.left = x + "px";
-    noBtn.style.top = Math.random() * 50 + "px";
+        newX = Math.random() * Math.max(0, maxX);
+        newY = Math.random() * maxY;
+        
+        // Check if this position overlaps with Yes button
+        const padding = 30; // Minimum distance between buttons
+        const overlapsHorizontally = (
+            newX < yesRelativeLeft + yesBtnRect.width + padding &&
+            newX + noBtnWidth > yesRelativeLeft - padding
+        );
+        const overlapsVertically = (
+            newY < yesRelativeTop + yesBtnRect.height + padding &&
+            newY + noBtnHeight > yesRelativeTop - padding
+        );
+        
+        const overlaps = overlapsHorizontally && overlapsVertically;
+        
+        attempts++;
+        
+        if (!overlaps || attempts >= maxAttempts) {
+            break;
+        }
+    } while (true);
+    
+    // Apply new position
+    noBtn.style.left = newX + "px";
+    noBtn.style.top = newY + "px";
 }
 
-/* NO escape - using touch events for mobile */
+/* Event listeners for NO button - Desktop */
+noBtn.addEventListener("mouseenter", moveNoButton);
 noBtn.addEventListener("mousemove", moveNoButton);
-noBtn.addEventListener("mousedown", moveNoButton);
-noBtn.addEventListener("touchstart", (e) => {
+noBtn.addEventListener("mousedown", function(e) {
     e.preventDefault();
-    moveNoButton();
+    moveNoButton(e);
+});
+
+/* Event listeners for NO button - Mobile/Touch */
+noBtn.addEventListener("touchstart", function(e) {
+    moveNoButton(e);
 }, { passive: false });
-noBtn.addEventListener("click", e => {
+
+noBtn.addEventListener("touchmove", function(e) {
+    moveNoButton(e);
+}, { passive: false });
+
+noBtn.addEventListener("click", function(e) {
     e.preventDefault();
-    moveNoButton();
+    e.stopPropagation();
+    moveNoButton(e);
 });
 
 /* YES interaction feedback */
 yesBtn.addEventListener("mousedown", addExtraPulse);
 yesBtn.addEventListener("mouseenter", addExtraPulse);
-yesBtn.addEventListener("touchstart", addExtraPulse);
+yesBtn.addEventListener("touchstart", function(e) {
+    addExtraPulse();
+}, { passive: true });
 
 /* YES click */
 yesBtn.addEventListener("click", () => {
@@ -525,21 +584,26 @@ yesBtn.addEventListener("click", () => {
 
 /* Hearts confetti only - more hearts, slower speed */
 function createConfetti() {
-    const icons = ["❤️","💖","💕"];
+    const icons = ["❤️"];
     
     // Lots of hearts falling slowly
-    for (let i = 0; i < 150; i++) {
+    for (let i = 0; i < 15; i++) {
         const c = document.createElement("div");
         c.className = "confetti";
         c.innerHTML = icons[Math.floor(Math.random()*icons.length)];
         c.style.left = Math.random()*100 + "vw";
         c.style.fontSize = 16 + Math.random()*16 + "px";
         c.style.animationDuration = 5 + Math.random()*3 + "s";
-        c.style.animationDelay = Math.random()*1 + "s";
+        c.style.animationDelay = Math.random()*0.5 + "s";
         document.body.appendChild(c);
         setTimeout(() => c.remove(), 8000);
     }
 }
+
+// Prevent touch scrolling on the No button
+noBtn.addEventListener('touchmove', function(e) {
+    e.preventDefault();
+}, { passive: false });
 </script>
 
 </body>
